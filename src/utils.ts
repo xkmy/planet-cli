@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import path from 'path'
+import rimraf from 'rimraf'
 import { DEV } from './constants'
 import { MiddlewareFn } from './types'
 
@@ -30,4 +31,12 @@ export function compose<T>(middleware: MiddlewareFn<T>[], ctx: T) {
     return currMiddleware(ctx || ({} as T), () => dispatch(++index))
   }
   dispatch(0)
+}
+
+export const clearDir = (dir: string) => {
+  return new Promise(res => {
+    rimraf(getProjectPath(dir), {}, () => {
+      res(true)
+    })
+  })
 }

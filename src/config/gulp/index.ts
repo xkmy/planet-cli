@@ -6,7 +6,7 @@ import cssnano from 'gulp-cssnano'
 import through2 from 'through2'
 import esConfig from '../babel/es'
 import cjsConfig from '../babel/lib'
-import { getProjectPath } from '../../utils'
+import { clearDir, getProjectPath } from '../../utils'
 import { CJS, ESM, LIB } from '../../constants'
 import { BuildOptions, Mode } from '../../types'
 
@@ -119,8 +119,9 @@ const lessToCss = ({
   })
 }
 
-const buildCjs = ({ entry, mode, outDirCjs }: Options & Pick<BuildOptions, 'outDirCjs'>) => {
-  console.log('build cjs')
+const buildCjs = async({ entry, mode, outDirCjs }: Options & Pick<BuildOptions, 'outDirCjs'>) => {
+  await clearDir(outDirCjs)
+
   gulp.task('compileCJS', () => {
     return compileScripts(mode, outDirCjs, getRealEntry(entry))
   })
@@ -132,7 +133,9 @@ const buildCjs = ({ entry, mode, outDirCjs }: Options & Pick<BuildOptions, 'outD
   })
 }
 
-const buildEsm = ({ entry, mode, outDirEsm }: Options & Pick<BuildOptions, 'outDirEsm'>) => {
+const buildEsm = async({ entry, mode, outDirEsm }: Options & Pick<BuildOptions, 'outDirEsm'>) => {
+  await clearDir(outDirEsm)
+
   gulp.task('compileESM', () => {
     return compileScripts(mode, outDirEsm, getRealEntry(entry))
   })

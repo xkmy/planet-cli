@@ -9,10 +9,12 @@ export type MiddlewareFn<T> = {
 export type BuildOptions = {
   entry: string
   mode: Mode
+  /** umd 模块的入口文件 */
+  entryUmd?: string
   outputName: string
   outDirCjs?: string
   outDirEsm?: string
-  outDirUmd?:string
+  outDirUmd?: string
   copyLess?: string
   lessToCss?: string
   cleanDir?: string
