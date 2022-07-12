@@ -8,20 +8,16 @@ import typescript from 'rollup-plugin-typescript2'
 import cssnao from 'cssnano'
 import { BuildOptions } from 'types'
 import { logger, clearDir } from '../../utils'
+
 const rollup = require('rollup')
 
 type Options = Pick<BuildOptions, 'entryUmd' | 'outDirUmd' | 'outputName'>
 
 const getProjectPath = (dir = './'): string => {
-  return path.join(process.cwd(), dir);
+  return path.join(process.cwd(), dir)
 }
 
-const buildUmd = async ({
-  entryUmd,
-  outDirUmd,
-  outputName
-}: Options) => {
-
+const buildUmd = async ({ entryUmd, outDirUmd, outputName }: Options) => {
   const inputOptions: InputOptions = {
     input: getProjectPath(entryUmd),
     plugins: [
@@ -45,17 +41,16 @@ const buildUmd = async ({
   const outputOptions: OutputOptions = {
     file: outputName,
     format: 'umd',
-    name: getProjectPath(outDirUmd),
+    name: getProjectPath(outDirUmd)
   }
 
   try {
-    const bundle = await rollup.rollup(inputOptions);
-    await bundle.generate(outputOptions);
-    await bundle.write(outputOptions);
+    const bundle = await rollup.rollup(inputOptions)
+    await bundle.generate(outputOptions)
+    await bundle.write(outputOptions)
   } catch (error) {
     logger.error('UMD Build failed' + error)
   }
-
 }
 
 const build = async (options: Options) => {

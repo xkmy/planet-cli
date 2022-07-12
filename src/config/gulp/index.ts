@@ -17,8 +17,8 @@ const paths = {
     lib: getProjectPath(LIB),
     esm: getProjectPath(ESM)
   },
-  styles: path => getProjectPath(`${path}/**/*.less`),
-  scripts: path => [
+  styles: (path: string) => getProjectPath(`${path}/**/*.less`),
+  scripts: (path: string) => [
     getProjectPath(`${path}/**/*.{ts,tsx,js,jsx}`),
     getProjectPath(`!${path}/**/__tests__/*.{ts,tsx,js,jsx}`)
   ]
@@ -74,7 +74,6 @@ const copyLess = ({
 }: Options & Pick<BuildOptions, 'outDirCjs' | 'outDirEsm'>) => {
   gulp.task('copyLess', () => {
     const source = gulp.src(paths.styles(getRealEntry(entry)))
-    console.log('source', outDirCjs)
     if (mode === CJS) {
       source.pipe(gulp.dest(outDirCjs))
     }
@@ -119,7 +118,7 @@ const lessToCss = ({
   })
 }
 
-const buildCjs = async({ entry, mode, outDirCjs }: Options & Pick<BuildOptions, 'outDirCjs'>) => {
+const buildCjs = async ({ entry, mode, outDirCjs }: Options & Pick<BuildOptions, 'outDirCjs'>) => {
   await clearDir(outDirCjs)
 
   gulp.task('compileCJS', () => {
@@ -133,7 +132,7 @@ const buildCjs = async({ entry, mode, outDirCjs }: Options & Pick<BuildOptions, 
   })
 }
 
-const buildEsm = async({ entry, mode, outDirEsm }: Options & Pick<BuildOptions, 'outDirEsm'>) => {
+const buildEsm = async ({ entry, mode, outDirEsm }: Options & Pick<BuildOptions, 'outDirEsm'>) => {
   await clearDir(outDirEsm)
 
   gulp.task('compileESM', () => {

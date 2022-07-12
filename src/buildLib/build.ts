@@ -62,8 +62,6 @@ const bulidLibFns: { [key in BuildLibKeys]: BuildFn } = {
 
 
 const build = async (params: BuildOptions) => {
-  console.log('params', params)
-
   const buildFns: BuildFn[] = []
 
   for (const key in bulidLibFns) {

@@ -52,10 +52,10 @@ planet --help            查看帮助信息
 
 ```javascript
  "scripts": {
+    "build:types": "tsc --outDir types -d --emitDeclarationOnly --noEmit false",
     "build:umd": "planet build --mode umd",
     "build:es": "planet build --mode esm",
     "build:cjs": "planet build --mode cjs",
     "build": "yarn build:umd && yarn build:cjs && yarn build:es"
   }
-```
 ```
