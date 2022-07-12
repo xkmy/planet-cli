@@ -27,10 +27,11 @@ planet --help            查看帮助信息
 ```
 
 ### Options
+
 - `--entry`
   - CJS 和 ESM 打包入口目录,默认是 src
 - `--entry-umd`
-  - UMD 打包入口文件, 默认是 src/index.ts
+  - UMD 打包入口文件,默认是 src/index.ts
 - `--mode cjs`
   - 打包成 CJS 规范
 - `--mode esm`
@@ -44,11 +45,11 @@ planet --help            查看帮助信息
 - `-out-dir-umd`
   - 输出 UMD 格式的目录,默认是`./dist`
 - `--out-dir-cjs`
-  - 输出 CJS 格式的目录,默认`./lib"`  
+  - 输出 CJS 格式的目录,默认`./lib"`
 - `--out-dir-esm`
   - 输出 ESM 格式的目录,默认是`./esm`
 
-### Demo 
+### Demo
 
 ```javascript
  "scripts": {

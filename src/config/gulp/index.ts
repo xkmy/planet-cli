@@ -43,7 +43,7 @@ function compileScripts(mode: Mode, destDir: string, entry: string) {
     .src(scripts(entry))
     .pipe(babel(mode === ESM ? esConfig : cjsConfig))
     .pipe(
-      through2.obj(function fn(file, encoding: string, next: () => void) {
+      through2.obj(function fn(file: any, encoding: string, next: () => void) {
         this.push(file.clone())
         console.log('content', file.path)
         if (file.path.match(/(\/|\\)style(\/|\\)index\.js/)) {

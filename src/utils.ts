@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import path from 'path'
 import rimraf from 'rimraf'
-import { DEV } from './constants'
 import { MiddlewareFn } from './types'
 
 const log = (fn: Function) => {
@@ -21,8 +20,6 @@ export const logger = {
 export const getProjectPath = (dir = './'): string => {
   return path.join(process.cwd(), dir)
 }
-
-export const isDev = env => env === DEV
 
 export function compose<T>(middleware: MiddlewareFn<T>[], ctx: T) {
   function dispatch(index: number) {
