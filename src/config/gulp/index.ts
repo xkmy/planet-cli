@@ -45,7 +45,6 @@ function compileScripts(mode: Mode, destDir: string, entry: string) {
     .pipe(
       through2.obj(function fn(file: any, encoding: string, next: () => void) {
         this.push(file.clone())
-        console.log('content', file.path)
         if (file.path.match(/(\/|\\)style(\/|\\)index\.js/)) {
           const content = file.contents.toString(encoding)
           // 处理文件内容

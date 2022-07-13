@@ -7,55 +7,55 @@ import { BuildOptions } from '../types'
 
 const bulidLibFns: { [key in BuildLibKeys]: BuildFn } = {
   [UMD]: async (ctx, next) => {
-    logger.info('buildUMD ing...')
+    logger.info('Start building UMD...')
     await buildUmd({
       outDirUmd: ctx.outDirUmd,
       entryUmd: ctx.entryUmd,
       outputName: ctx.outputName
     })
-    logger.success('buildUMD computed')
+    logger.success('UMD build completed')
     next()
   },
   [CJS]: async (ctx, next) => {
-    logger.info('buildCJS ing...')
+    logger.info('Start building CJS...')
     await buildCjs({
       mode: ctx.mode,
       outDirCjs: ctx.outDirCjs,
       entry: ctx.entry
     })
-    logger.success('buildCJS computed')
+    logger.success('CJS build completed')
     next()
   },
   [ESM]: async (ctx, next) => {
-    logger.info('buildESM ing...')
+    logger.info('Start building ESM...')
     await buildEsm({
       mode: ctx.mode,
       outDirEsm: ctx.outDirEsm,
       entry: ctx.entry
     })
-    logger.success('buildESM computed')
+    logger.success('ESM build completed')
     next()
   },
   [LESS_TO_CSS]: async (ctx, next) => {
-    logger.info('less to css ing...')
+    logger.info(' Less to CSS start...')
     await lessToCss({
       outDirCjs: ctx.outDirCjs,
       entry: ctx.entry,
       mode: ctx.mode,
       outDirEsm: ctx.outDirEsm
     })
-    logger.success('less to css computed')
+    logger.success('Less to CSS completed')
     next()
   },
   [COPY_LESS]: async (ctx, next) => {
-    logger.info('copyLess ing...')
+    logger.info('Copy Less start...')
     await copyLess({
       outDirCjs: ctx.outDirCjs,
       entry: ctx.entry,
       mode: ctx.mode,
       outDirEsm: ctx.outDirEsm
     })
-    logger.success('copyLess computed')
+    logger.success('Copy Less completed')
     next()
   }
 }
