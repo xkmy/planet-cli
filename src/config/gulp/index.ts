@@ -7,8 +7,9 @@ import through2 from 'through2'
 import esConfig from '../babel/es'
 import cjsConfig from '../babel/lib'
 import { clearDir, getProjectPath } from '../../utils'
-import { CJS, ESM, LIB } from '../../constants'
+import { CJS, ESM, LIB, UMD } from '../../constants'
 import { BuildOptions, Mode } from '../../types'
+import concat from 'gulp-concat'
 
 type Options = Pick<BuildOptions, 'entry' | 'mode'>
 
@@ -69,16 +70,20 @@ const copyLess = ({
   entry,
   mode,
   outDirCjs,
-  outDirEsm
-}: Options & Pick<BuildOptions, 'outDirCjs' | 'outDirEsm'>) => {
+  outDirEsm,
+  outDirUmd
+}: Options & Pick<BuildOptions, 'outDirCjs' | 'outDirEsm' | 'outDirUmd'>) => {
   gulp.task('copyLess', () => {
     const source = gulp.src(paths.styles(getRealEntry(entry)))
+
     if (mode === CJS) {
       source.pipe(gulp.dest(outDirCjs))
     }
+
     if (mode === ESM) {
       source.pipe(gulp.dest(outDirEsm))
     }
+
     return source
   })
 
@@ -93,20 +98,28 @@ const lessToCss = ({
   entry,
   mode,
   outDirCjs,
-  outDirEsm
-}: Options & Pick<BuildOptions, 'outDirCjs' | 'outDirEsm'>) => {
+  outDirEsm,
+  outDirUmd
+}: Options & Pick<BuildOptions, 'outDirCjs' | 'outDirEsm' | 'outDirUmd'>) => {
   gulp.task('lessToCss', () => {
     const source = gulp
       .src(paths.styles(getRealEntry(entry)))
       .pipe(less())
       .pipe(autoprefixer())
       .pipe(cssnano({ zindex: false, reduceIdents: false }))
+
     if (mode === CJS) {
       source.pipe(gulp.dest(outDirCjs))
     }
+
     if (mode === ESM) {
       source.pipe(gulp.dest(outDirEsm))
     }
+
+    if (mode === UMD) {
+      source.pipe(concat(`${outDirUmd}.css`)).pipe(gulp.dest(outDirUmd))
+    }
+
     return source
   })
 

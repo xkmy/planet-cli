@@ -51,12 +51,46 @@ planet --help            查看帮助信息
 
 ### Demo
 
+打包成 ESM 格式
+
+```shell
+planet build --mode esm
+```
+
+打包成 CJS 格式
+
+```shell
+planet build --mode cjs
+```
+
+打包成 UMD 格式
+
+```shell
+planet build --mode umd
+```
+
+需要同时编译 Less 文件, 只需要在命令后加上 --less-to-css 即可(默认开启),
+CSS 文件的输出目录是 ESM 和 CJS 规范各自的输出目录 
+
+```shell
+planet build --mode esm --less-to-css --copy-less
+```
+
+打包类型文件
+-tp 是 tsconfig.json 文件路径
+
+```shell
+planet build -tp ./tsconfig.json
+```
+
+完整演示
+
 ```javascript
  "scripts": {
-    "build:types": "tsc --outDir types -d --emitDeclarationOnly --noEmit false",
-    "build:umd": "planet build --mode umd",
-    "build:es": "planet build --mode esm",
-    "build:cjs": "planet build --mode cjs",
-    "build": "yarn build:umd && yarn build:cjs && yarn build:es"
+    "build:types": "planet build -tp ./tsconfig.json",
+    "build:umd": "planet build --mode umd --less-to-css",
+    "build:es": "planet build --mode esm --less-to-css --copy-less",
+    "build:cjs": "planet build --mode cjs --less-to-css --copy-less",
+    "build": "yarn build:umd && yarn build:cjs && yarn build:es && yarn build:types"
   }
 ```

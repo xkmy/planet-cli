@@ -18,4 +18,8 @@ export type BuildOptions = {
   copyLess?: string
   lessToCss?: string
   cleanDir?: string
+  /** tsConfig 路径 */
+  tsConfigPath?: string
+  /** 类型文件输出目录 */
+  outDirTypes?: string
 }

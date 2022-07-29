@@ -10,7 +10,7 @@ const log = (fn: Function) => {
 }
 
 export const logger = {
-  success: log(chalk.green),
+  success: log((msg: string) => chalk.green(msg + '\n')),
   error: log(chalk.red),
   warn: log(chalk.yellow),
   info: log(chalk.cyan),
