@@ -1,6 +1,6 @@
 <h1 align="center">planet-cli</h1>
 
-优点：
+## Feature
 
 - 一行命令打包 react 组件库,同时支持 UMD、CJS、ESM 三种规范, 打包方式等同 antd
 - 一行命令打包工具库(ts、js)
