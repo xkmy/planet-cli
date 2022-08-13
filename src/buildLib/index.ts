@@ -15,6 +15,8 @@ export const buildLib = (commander: Command) => {
     .option('--less-to-css', '是否编译组件样式', true)
     .option('--copy-less', '拷贝不参与编译的文件')
     .option('-m, --mode <umd|cjs|esm>', '打包模式 支持umd,cjs和esm')
+    .option('-tp, --ts-config-path <path>', '当前项目 tsconfig 的路径', '')
+    .option('--out-dir-types', '类型文件输出目录', 'lib')
     .action(build)
 }
 

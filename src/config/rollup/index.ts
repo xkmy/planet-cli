@@ -1,21 +1,14 @@
-import path from 'path'
 import { InputOptions, OutputOptions } from 'rollup'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import babel from '@rollup/plugin-babel'
-import postcss from 'rollup-plugin-postcss'
 import typescript from 'rollup-plugin-typescript2'
-import cssnao from 'cssnano'
 import { BuildOptions } from 'types'
-import { logger, clearDir } from '../../utils'
+import { logger, clearDir, getProjectPath } from '../../utils'
 
 const rollup = require('rollup')
 
 type Options = Pick<BuildOptions, 'entryUmd' | 'outDirUmd' | 'outputName'>
-
-const getProjectPath = (dir = './'): string => {
-  return path.join(process.cwd(), dir)
-}
 
 const buildUmd = async ({ entryUmd, outDirUmd, outputName }: Options) => {
   const inputOptions: InputOptions = {
@@ -23,11 +16,6 @@ const buildUmd = async ({ entryUmd, outDirUmd, outputName }: Options) => {
     plugins: [
       resolve(),
       commonjs({ include: /node_modules/ }),
-      postcss({
-        plugins: [cssnao()],
-        extensions: ['.css', '.less'],
-        extract: 'index.css'
-      }),
       babel({
         exclude: '/node_modules/**',
         babelHelpers: 'runtime',
@@ -49,7 +37,7 @@ const buildUmd = async ({ entryUmd, outDirUmd, outputName }: Options) => {
     await bundle.generate(outputOptions)
     await bundle.write(outputOptions)
   } catch (error) {
-    logger.error('UMD Build failed' + error)
+    logger.error('UMD build failed' + error)
   }
 }
 
